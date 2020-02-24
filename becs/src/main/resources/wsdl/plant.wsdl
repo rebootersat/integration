@@ -1,0 +1,176 @@
+
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch="http://com.siemens.soap.bfs/webbfs-soap-server"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://com.siemens.soap.bfs/webbfs-soap-server"
+	targetNamespace="http://com.siemens.soap.bfs/webbfs-soap-server">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://com.siemens.soap.bfs/webbfs-soap-server">
+			<element name="SearchObjects">
+				<complexType>
+					<sequence>
+						<element name="mainTable" type="string" />
+						<element name="searchCrit" type="tns:SearchCrit" />
+						<element name="selectList" type="tns:SelectList" />
+						<element name="startIndex" type="int" />
+						<element name="endIndex" type="int" />
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="SearchCrit">
+				<sequence>
+					<element name="ListOf_SearchVal"
+						type="tns:ArrayOfSearchVal" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfSearchVal">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0"
+						name="SearchVal" type="tns:SearchVal" />
+				</sequence>
+			</complexType>
+			<complexType name="SearchVal">
+				<sequence>
+					<element name="CloneNum" type="string" />
+					<element name="Group" type="string" />
+					<element name="LinkOR" type="string" />
+					<element name="Operator" type="string" />
+					<element name="OperatorNot" type="string" />
+					<element name="TabAndCol" type="string" />
+					<element name="Value" type="string" />
+				</sequence>
+			</complexType>
+			<complexType name="SelectList">
+				<sequence>
+					<element name="ListOf_Links" type="tns:ArrayOfLinks" />
+					<element name="ListOf_SelectCol"
+						type="tns:ArrayOfSelectCols" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfLinks">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="Link"
+						type="tns:Link" />
+				</sequence>
+			</complexType>
+			<complexType name="Link">
+				<sequence>
+					<element name="CloneNum" type="string" />
+					<element name="LinkNum" type="string" />
+					<element name="TabNam" type="string" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfSelectCols">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0"
+						name="SelectCol" type="tns:SelectCol" />
+				</sequence>
+			</complexType>
+			<complexType name="SelectCol">
+				<sequence>
+					<element name="AggFun" type="string" />
+					<element name="CloneNum" type="string" />
+					<element name="Null" type="string" />
+					<element name="OrderBy" type="string" />
+					<element name="TabAndCol" type="string" />
+					<element name="Value" type="string" />
+				</sequence>
+			</complexType>
+			<element name="SearchObjectsResponse">
+				<complexType>
+					<sequence>
+						<element name="SearchObjectsResult"
+							type="tns:SearchObjectsResult" />
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="SearchObjectsResult">
+				<sequence>
+					<element name="DBServer" type="string" />
+					<element name="DBUser" type="string" />
+					<element name="ListOf_BfsObj" type="tns:ArrayOfBfsObj" />
+					<element name="ListOf_LinkInfos"
+						type="tns:ArrayOfLinkInfos" />
+					<element name="TabNam" type="string" />
+					<element name="Total" type="int" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfBfsObj">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="BfsObj"
+						type="tns:BfsObj" />
+				</sequence>
+			</complexType>
+			<complexType name="BfsObj">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="ObjVal"
+						type="tns:ArrayOfObjVal" />
+					<element name="TabNam" type="string" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfObjVal">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="ObjVal"
+						type="tns:ObjVal" />
+				</sequence>
+			</complexType>
+			<complexType name="ObjVal">
+				<sequence>
+					<element name="ColNam" type="string" />
+					<element name="Value" type="string" />
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOfLinkInfos">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0"
+						name="LinkInfo" type="tns:LinkInfo" />
+				</sequence>
+			</complexType>
+			<complexType name="LinkInfo">
+				<sequence>
+					<element name="DBServer" type="string" />
+					<element name="DBUser" type="string" />
+					<element name="LinkName" type="string" />
+					<element name="SourceClone" type="string" />
+					<element name="SourceColumn" type="string" />
+					<element name="SourceTable" type="string" />
+					<element name="TargetClone" type="string" />
+					<element name="TargetColumn" type="string" />
+					<element name="TargetTable" type="string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="SearchObjectsResponse">
+		<wsdl:part element="tns:SearchObjectsResponse"
+			name="SearchObjectsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="WebBFSSoapServerPort">
+		<wsdl:operation name="SearchObjects">
+			<wsdl:output message="tns:SearchObjectsResponse"
+				name="SearchObjectsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="WebBFSSoapServerPortSoap11"
+		type="tns:WebBFSSoapServerPort">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="SearchObjects">
+			<soap:operation soapAction="" />
+			<wsdl:output name="SearchObjectsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="WebBFSSoapServerPortService">
+		<wsdl:port binding="tns:WebBFSSoapServerPortSoap11"
+			name="WebBFSSoapServerPortSoap11">
+			<soap:address location="http://localhost:8082/bfs" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

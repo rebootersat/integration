@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://com.siemens.soap.bfs/webbfs-soap-server"
+	targetNamespace="http://com.siemens.soap.bfs/webbfs-soap-server"
+	elementFormDefault="qualified">
+
+	<element name="SearchObjects">
+		<complexType>
+			<sequence>
+				<element name="mainTable" type="string" />
+				<element name="searchCrit" type="tns:SearchCrit" />
+				<element name="selectList" type="tns:SelectList" />
+				<element name="startIndex" type="int"></element>
+				<element name="endIndex" type="int"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="SearchCrit">
+		<sequence>
+			<element name="ListOf_SearchVal" type="tns:ArrayOfSearchVal" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfSearchVal">
+		<sequence>
+			<element name="SearchVal" type="tns:SearchVal" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SearchVal">
+		<sequence>
+			<element name="CloneNum" type="string"></element>
+			<element name="Group" type="string"></element>
+			<element name="LinkOR" type="string"></element>
+			<element name="Operator" type="string"></element>
+			<element name="OperatorNot" type="string"></element>
+			<element name="TabAndCol" type="string"></element>
+			<element name="Value" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="SelectList">
+		<sequence>
+			<element name="ListOf_Links" type="tns:ArrayOfLinks" />
+			<element name="ListOf_SelectCol" type="tns:ArrayOfSelectCols" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfLinks">
+		<sequence>
+			<element name="Link" type="tns:Link" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="Link">
+		<sequence>
+			<element name="CloneNum" type="string" />
+			<element name="LinkNum" type="string" />
+			<element name="TabNam" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfSelectCols">
+		<sequence>
+			<element name="SelectCol" type="tns:SelectCol" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="SelectCol">
+		<sequence>
+			<element name="AggFun" type="string" />
+			<element name="CloneNum" type="string" />
+			<element name="Null" type="string" />
+			<element name="OrderBy" type="string" />
+			<element name="TabAndCol" type="string" />
+			<element name="Value" type="string" />
+		</sequence>
+	</complexType>
+
+	<element name="SearchObjectsResponse">
+		<complexType>
+			<sequence>
+				<element name="SearchObjectsResult"
+					type="tns:SearchObjectsResult" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="SearchObjectsResult">
+		<sequence>
+			<element name="DBServer" type="string" />
+			<element name="DBUser" type="string" />
+			<element name="ListOf_BfsObj" type="tns:ArrayOfBfsObj" />
+			<element name="ListOf_LinkInfos" type="tns:ArrayOfLinkInfos" />
+			<element name="TabNam" type="string" />
+			<element name="Total" type="int" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfBfsObj">
+		<sequence>
+			<element name="BfsObj" type="tns:BfsObj" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="BfsObj">
+		<sequence>
+			<element name="ObjVal" type="tns:ArrayOfObjVal" minOccurs="0"
+				maxOccurs="unbounded" />
+			<element name="TabNam" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfObjVal">
+		<sequence>
+			<element name="ObjVal" type="tns:ObjVal" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ObjVal">
+		<sequence>
+			<element name="ColNam" type="string"></element>
+			<element name="Value" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOfLinkInfos">
+		<sequence>
+			<element name="LinkInfo" type="tns:LinkInfo" minOccurs="0"
+				maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="LinkInfo">
+		<sequence>
+			<element name="DBServer" type="string" />
+			<element name="DBUser" type="string" />
+			<element name="LinkName" type="string" />
+			<element name="SourceClone" type="string" />
+			<element name="SourceColumn" type="string" />
+			<element name="SourceTable" type="string" />
+			<element name="TargetClone" type="string" />
+			<element name="TargetColumn" type="string" />
+			<element name="TargetTable" type="string" />
+		</sequence>
+	</complexType>
+
+</schema>
