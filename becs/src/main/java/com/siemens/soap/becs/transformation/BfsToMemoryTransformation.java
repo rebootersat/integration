@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.siemens.soap.bfs.objects.memory.Column;
 import com.siemens.soap.bfs.objects.memory.Memory;
-import com.siemens.soap.bfs.objects.memory.Row;
+import com.siemens.soap.bfs.objects.utils.Column;
 import com.siemens.soap.bfs.objects.utils.Destination;
+import com.siemens.soap.bfs.objects.utils.Row;
 import com.siemens.soap.bfs.objects.utils.Source;
 import com.siemens.soap.bfs.objects.webbfs.DataTable;
 

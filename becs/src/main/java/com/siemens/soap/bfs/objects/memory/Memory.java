@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.siemens.soap.bfs.objects.utils.Destination;
+import com.siemens.soap.bfs.objects.utils.Row;
 import com.siemens.soap.bfs.objects.utils.Source;
 
 public class Memory implements Source, Destination {
