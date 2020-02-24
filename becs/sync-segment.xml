@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow Name="SyncSegment">
+   <Connectors>
+      <Connector Name="WebBFS">
+         <SearchObjects>
+            <SearchObject Name="FetchPlantItems">
+               <ListOf_DataTables>
+                  <DataTable Name="Anl">
+                     <Columns>
+                        <ColumnName>AnlKnz</ColumnName>
+                        <ColumnName>KlaKnz</ColumnName>
+                        <ColumnName>APMKla</ColumnName>
+                        <ColumnName>AnlSta</ColumnName>
+                        <ColumnName>AnlBez</ColumnName>
+                        <ColumnName>SyncToAPM</ColumnName>
+                     </Columns>
+                  </DataTable>
+                  <DataTable Name="Asr">
+                     <Columns>
+                        <ColumnName>AsrNum</ColumnName>
+                     </Columns>
+                  </DataTable>
+               </ListOf_DataTables>
+            </SearchObject>
+         </SearchObjects>
+      </Connector>
+   </Connectors>
+   <Transformations>
+      <Transformation Name="Anl">
+         <Mapping>
+            <SourceColName>AnlKnz</SourceColName>
+            <DestinationColName>anlknz</DestinationColName>
+         </Mapping>
+         <Mapping>
+            <SourceColName>KlaKnz</SourceColName>
+            <DestinationColName>klaknz</DestinationColName>
+         </Mapping>
+         <Mapping>
+            <SourceColName>APMKla</SourceColName>
+            <DestinationColName>apmkla</DestinationColName>
+         </Mapping>
+         <Mapping>
+            <SourceColName>AnlSta</SourceColName>
+            <DestinationColName>anlsta</DestinationColName>
+         </Mapping>
+         <Mapping>
+            <SourceColName>AnlBez</SourceColName>
+            <DestinationColName>anlbez</DestinationColName>
+         </Mapping>
+         <Mapping>
+            <SourceColName>SyncToAPM</SourceColName>
+            <DestinationColName>sync_to_apm</DestinationColName>
+         </Mapping>
+      </Transformation>
+      <Transformation Name="Asr">
+         <Mapping>
+            <SourceColName>AsrNum</SourceColName>
+            <DestinationColName>asrnum</DestinationColName>
+         </Mapping>
+      </Transformation>
+   </Transformations>
+   <Memories>
+      <Memory Name="AnlMemory">
+         <Columns>
+            <Column>anlknz</Column>
+            <Column>klaknz</Column>
+            <Column>apmkla</Column>
+            <Column>anlsta</Column>
+            <Column>anlbez</Column>
+            <Column>sync_to_apm</Column>
+         </Columns>
+      </Memory>
+      <Memory Name="AsrMemory">
+         <Columns>
+            <Column>asrnum</Column>
+         </Columns>
+      </Memory>
+   </Memories>
+</Workflow>
