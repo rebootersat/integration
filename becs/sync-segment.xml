@@ -76,4 +76,34 @@
          </Columns>
       </Memory>
    </Memories>
+   <Variables>
+      <Variable>
+         <Name>kks</Name>
+         <Value></Value>
+      </Variable>
+	  <Variable>
+		 <Name>webbfs_class</Name>
+         <Value></Value>
+      </Variable>
+	  <Variable>
+		 <Name>APM_class</Name>
+         <Value></Value>
+      </Variable>
+	  <Variable>
+		 <Name>status</Name>
+         <Value></Value>
+      </Variable>
+	  <Variable>
+		 <Name>designation</Name>
+         <Value></Value>
+      </Variable>
+   </Variables>
+   <Assignments>
+	<Assignment Name="FromMemory">
+		<Mapping>
+            <VariableName>AnlKnz</VariableName>
+            <SourceColumnName>anlknz</SourceColumnName>
+        </Mapping>
+	</Assignment>
+   </Assignments>
 </Workflow>
