@@ -20,7 +20,7 @@ public class ForEach {
 		rows.forEach(row -> {
 			row.getColumnValues().forEach(col -> {
 				Mapping mapping = getMapping(col.getName());
-				mapping.getDestCol();
+				Variables.updateValue(mapping.getSrcCol(), col.getValue());
 			});
 		});
 	}

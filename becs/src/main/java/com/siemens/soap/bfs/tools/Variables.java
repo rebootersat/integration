@@ -13,7 +13,7 @@ public class Variables {
 		return variables;
 	}
 
-	public void updateValue(String varName, String value) {
+	public static void updateValue(String varName, String value) {
 		variables.forEach(var -> {
 			if (var.getName().equals(varName))
 				var.setValue(value);
