@@ -7,7 +7,7 @@ public class Variables {
 
 	static List<Variable> variables;
 
-	public List<Variable> getVariables() {
+	public static List<Variable> getVariables() {
 		if (variables == null)
 			return new ArrayList<Variable>();
 		return variables;

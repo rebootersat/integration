@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.siemens.becs.objects.DataTable;
 import com.siemens.becs.objects.Row;
-import com.siemens.becs.objects.utils.Destination;
-import com.siemens.becs.objects.utils.Source;
 
 public class Memory implements DataTable {
 
@@ -19,7 +17,7 @@ public class Memory implements DataTable {
 			columnsNames.add(cols[i]);
 		}
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -53,10 +51,10 @@ public class Memory implements DataTable {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{");
-		
+
 		for (int i = 0; i < rows.size(); i++) {
 			builder.append(rows.get(i));
-			if(i< rows.size() -1)
+			if (i < rows.size() - 1)
 				builder.append(",");
 		}
 		builder.append("}");

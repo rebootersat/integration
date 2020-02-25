@@ -99,11 +99,11 @@
       </Variable>
    </Variables>
    <Assignments>
-	<Assignment Name="FromMemory">
+	<SetValue Name="FromMemory">
 		<Mapping>
             <VariableName>AnlKnz</VariableName>
             <SourceColumnName>anlknz</SourceColumnName>
         </Mapping>
-	</Assignment>
+	</SetValue>
    </Assignments>
 </Workflow>
