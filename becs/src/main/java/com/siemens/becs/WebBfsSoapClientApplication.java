@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.xml.sax.SAXException;
 
-import com.siemens.becs.connector.xml.parser.XmlProcessor;
+import com.siemens.becs.utils.xml.XmlProcessor;
 
 @SpringBootApplication
 public class WebBfsSoapClientApplication {

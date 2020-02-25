@@ -1,4 +1,4 @@
-package com.siemens.becs.connector.xml.parser;
+package com.siemens.becs.utils.xml;
 
 import java.io.File;
 import java.io.IOException;
