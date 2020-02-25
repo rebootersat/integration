@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.connector.main;
+package com.siemens.becs.connector.main;
 
 import bfs.soap.siemens.com.webbfs_soap_server.ObjectFactory;
 

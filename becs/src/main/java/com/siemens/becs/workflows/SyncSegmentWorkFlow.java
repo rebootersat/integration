@@ -1,17 +1,17 @@
-package com.siemens.soap.bfs.workflows;
+package com.siemens.becs.workflows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.siemens.soap.becs.transformation.BfsToMemoryTransformation;
-import com.siemens.soap.becs.transformation.Mapping;
-import com.siemens.soap.becs.transformation.Transformation;
-import com.siemens.soap.bfs.connector.WebBFSConnector;
-import com.siemens.soap.bfs.objects.memory.Memory;
-import com.siemens.soap.bfs.objects.webbfs.DataTable;
-import com.siemens.soap.bfs.objects.webbfs.SearchObject;
+import com.siemens.becs.objects.memory.Memory;
+import com.siemens.becs.objects.webbfs.DataTable;
+import com.siemens.becs.objects.webbfs.SearchObject;
+import com.siemens.becs.system.WebBFSConnector;
+import com.siemens.becs.transformation.BfsToMemoryTransformation;
+import com.siemens.becs.transformation.Mapping;
+import com.siemens.becs.transformation.Transformation;
 
 @Service
 public class SyncSegmentWorkFlow implements Workflow {

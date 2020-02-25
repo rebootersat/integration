@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.connector.xml.parser;
+package com.siemens.becs.connector.xml.parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.siemens.soap.bfs.objects.webbfs.DataTable;
+import com.siemens.becs.objects.webbfs.DataTable;
 
 public class XmlProcessor {
 

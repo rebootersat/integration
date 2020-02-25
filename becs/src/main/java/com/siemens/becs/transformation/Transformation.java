@@ -1,7 +1,7 @@
-package com.siemens.soap.becs.transformation;
+package com.siemens.becs.transformation;
 
-import com.siemens.soap.bfs.objects.utils.Destination;
-import com.siemens.soap.bfs.objects.utils.Source;
+import com.siemens.becs.objects.utils.Destination;
+import com.siemens.becs.objects.utils.Source;
 
 public interface Transformation {
 

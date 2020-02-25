@@ -6,7 +6,8 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.siemens.soap.bfs.objects.webbfs.SearchObject;
+import com.siemens.becs.objects.webbfs.SearchObject;
+import com.siemens.becs.system.WebBFSConnector;
 
 public class WebBFSConnectorTest {
 

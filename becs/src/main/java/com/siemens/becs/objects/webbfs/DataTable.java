@@ -1,10 +1,10 @@
-package com.siemens.soap.bfs.objects.webbfs;
+package com.siemens.becs.objects.webbfs;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.siemens.soap.bfs.objects.utils.Source;
+import com.siemens.becs.objects.utils.Source;
 
 public class DataTable implements Source {
 

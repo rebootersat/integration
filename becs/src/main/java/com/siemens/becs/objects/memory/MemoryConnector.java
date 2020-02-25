@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.objects.memory;
+package com.siemens.becs.objects.memory;
 
 import java.util.List;
 

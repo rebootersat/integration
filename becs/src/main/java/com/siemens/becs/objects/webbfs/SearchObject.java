@@ -1,10 +1,10 @@
-package com.siemens.soap.bfs.objects.webbfs;
+package com.siemens.becs.objects.webbfs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.siemens.soap.becs.transformation.Transformation;
-import com.siemens.soap.bfs.connector.WebBFSSoapEndPoint;
+import com.siemens.becs.system.WebBFSSoapEndPoint;
+import com.siemens.becs.transformation.Transformation;
 
 import bfs.soap.siemens.com.webbfs_soap_server.ArrayOfBfsObj;
 import bfs.soap.siemens.com.webbfs_soap_server.BfsObj;

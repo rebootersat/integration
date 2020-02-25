@@ -1,4 +1,4 @@
-package com.siemens.soap.becs;
+package com.siemens.becs;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.xml.sax.SAXException;
 
-import com.siemens.soap.bfs.connector.xml.parser.XmlProcessor;
+import com.siemens.becs.connector.xml.parser.XmlProcessor;
 
 @SpringBootApplication
 public class WebBfsSoapClientApplication {

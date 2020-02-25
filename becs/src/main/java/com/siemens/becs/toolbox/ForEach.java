@@ -1,10 +1,10 @@
-package com.siemens.soap.bfs.tools;
+package com.siemens.becs.toolbox;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.siemens.soap.becs.transformation.Mapping;
-import com.siemens.soap.bfs.objects.utils.Row;
+import com.siemens.becs.objects.utils.Row;
+import com.siemens.becs.transformation.Mapping;
 
 public class ForEach {
 

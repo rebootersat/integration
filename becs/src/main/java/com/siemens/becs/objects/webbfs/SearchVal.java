@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.objects.webbfs;
+package com.siemens.becs.objects.webbfs;
 
 public class SearchVal {
 

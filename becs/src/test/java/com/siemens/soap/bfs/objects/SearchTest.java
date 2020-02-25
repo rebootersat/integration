@@ -10,9 +10,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.siemens.soap.bfs.objects.webbfs.SearchObject;
-import com.siemens.soap.bfs.objects.webbfs.SearchVal;
-import com.siemens.soap.bfs.objects.webbfs.SelectCol;
+import com.siemens.becs.objects.webbfs.SearchObject;
+import com.siemens.becs.objects.webbfs.SearchVal;
+import com.siemens.becs.objects.webbfs.SelectCol;
 
 public class SearchTest {
 

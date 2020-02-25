@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.connector;
+package com.siemens.becs.system;
 
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;

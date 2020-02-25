@@ -1,9 +1,9 @@
-package com.siemens.soap.bfs.connector;
+package com.siemens.becs.system;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.siemens.soap.bfs.objects.webbfs.SearchObject;
+import com.siemens.becs.objects.webbfs.SearchObject;
 
 public class WebBFSConnector {
 

@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.workflows;
+package com.siemens.becs.workflows;
 
 public interface Workflow {
 

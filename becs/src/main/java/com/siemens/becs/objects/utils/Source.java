@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.objects.utils;
+package com.siemens.becs.objects.utils;
 
 import java.util.List;
 

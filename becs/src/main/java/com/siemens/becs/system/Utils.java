@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.connector;
+package com.siemens.becs.system;
 
 import java.util.List;
 

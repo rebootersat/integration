@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.tools;
+package com.siemens.becs.toolbox;
 
 public class Variable {
 

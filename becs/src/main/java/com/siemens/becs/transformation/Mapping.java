@@ -1,4 +1,4 @@
-package com.siemens.soap.becs.transformation;
+package com.siemens.becs.transformation;
 
 public class Mapping {
 
