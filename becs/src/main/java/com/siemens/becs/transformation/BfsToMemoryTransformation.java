@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.siemens.becs.objects.Column;
+import com.siemens.becs.objects.DataTable;
 import com.siemens.becs.objects.Row;
 import com.siemens.becs.objects.memory.Memory;
-import com.siemens.becs.objects.utils.Destination;
 import com.siemens.becs.objects.utils.Source;
 import com.siemens.becs.objects.webbfs.WeBFSDataTable;
 
@@ -15,35 +15,30 @@ public class BfsToMemoryTransformation implements Transformation {
 
 	List<Mapping> mappings = new ArrayList<>();
 	private Source source;
-	private Destination dest;
+	private DataTable dest;
 	private String name;
 
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	private String getMappingBySourceColumnName(String ColName) {
 		for (Iterator<Mapping> iterator = mappings.iterator(); iterator.hasNext();) {
 			Mapping mapping = (Mapping) iterator.next();
-			if(mapping.getSrcCol().equals(ColName))
+			if (mapping.getSrcCol().equals(ColName))
 				return mapping.getDestCol();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void setSource(Source source) {
 		this.source = source;
-	}
-
-	@Override
-	public void setDestination(Destination dest) {
-		this.dest = dest;
 	}
 
 	public void addMapping(Mapping mapping) {
@@ -64,7 +59,7 @@ public class BfsToMemoryTransformation implements Transformation {
 				String mappedColName = getMappingBySourceColumnName(columnVal.getName());
 				mRow.addColumnValue(new Column(mappedColName, columnVal.getValue()));
 			});
-			memory.getRows().add(mRow);
+			memory.read().add(mRow);
 		});
 	}
 
@@ -74,7 +69,12 @@ public class BfsToMemoryTransformation implements Transformation {
 	}
 
 	@Override
-	public Destination getDestination() {
+	public DataTable getDestination() {
 		return dest;
+	}
+
+	@Override
+	public void setDestination(DataTable dest) {
+		this.dest = dest;
 	}
 }

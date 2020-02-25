@@ -3,11 +3,12 @@ package com.siemens.becs.objects.memory;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.siemens.becs.objects.DataTable;
 import com.siemens.becs.objects.Row;
 import com.siemens.becs.objects.utils.Destination;
 import com.siemens.becs.objects.utils.Source;
 
-public class Memory implements Source, Destination {
+public class Memory implements DataTable {
 
 	private String name;
 	private List<String> columnsNames = new ArrayList<>();
@@ -35,7 +36,7 @@ public class Memory implements Source, Destination {
 		this.columnsNames = columnsNames;
 	}
 
-	public List<Row> getRows() {
+	public List<Row> read() {
 		return rows;
 	}
 
