@@ -1,4 +1,4 @@
-package com.siemens.becs.toolbox;
+package com.siemens.becs.variables;
 
 public class Variable {
 

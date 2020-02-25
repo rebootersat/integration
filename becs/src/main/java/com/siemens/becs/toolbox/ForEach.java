@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import com.siemens.becs.objects.utils.Row;
 import com.siemens.becs.transformation.Mapping;
+import com.siemens.becs.variables.Variables;
 
 public class ForEach {
 

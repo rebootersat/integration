@@ -1,4 +1,4 @@
-package com.siemens.becs.toolbox;
+package com.siemens.becs.variables;
 
 import java.util.ArrayList;
 import java.util.List;
