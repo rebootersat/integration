@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.siemens.becs.objects.memory.Memory;
-import com.siemens.becs.objects.webbfs.DataTable;
+import com.siemens.becs.objects.webbfs.WeBFSDataTable;
 import com.siemens.becs.objects.webbfs.SearchObject;
 import com.siemens.becs.system.WebBFSConnector;
 import com.siemens.becs.transformation.BfsToMemoryTransformation;
@@ -67,9 +67,9 @@ public class SyncSegmentWorkFlow implements Workflow {
 		return trnsfrm;
 	}
 
-	private List<DataTable> createDataTable() {
-		List<DataTable> tables = new ArrayList<DataTable>();
-		DataTable table = new DataTable("Anl");
+	private List<WeBFSDataTable> createDataTable() {
+		List<WeBFSDataTable> tables = new ArrayList<WeBFSDataTable>();
+		WeBFSDataTable table = new WeBFSDataTable("Anl");
 		table.addColumn("AnlKnz");
 		table.addColumn("KlaKnz");
 		table.addColumn("APMKla");
@@ -78,7 +78,7 @@ public class SyncSegmentWorkFlow implements Workflow {
 		table.addColumn("SyncToAPM");
 		tables.add(table);
 
-		table = new DataTable("Asr");
+		table = new WeBFSDataTable("Asr");
 		table.addColumn("AsrNum");
 		tables.add(table);
 		return tables;

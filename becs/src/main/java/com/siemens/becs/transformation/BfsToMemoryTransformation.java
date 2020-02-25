@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.siemens.becs.objects.Column;
+import com.siemens.becs.objects.Row;
 import com.siemens.becs.objects.memory.Memory;
-import com.siemens.becs.objects.utils.Column;
 import com.siemens.becs.objects.utils.Destination;
-import com.siemens.becs.objects.utils.Row;
 import com.siemens.becs.objects.utils.Source;
-import com.siemens.becs.objects.webbfs.DataTable;
+import com.siemens.becs.objects.webbfs.WeBFSDataTable;
 
 public class BfsToMemoryTransformation implements Transformation {
 
@@ -56,7 +56,7 @@ public class BfsToMemoryTransformation implements Transformation {
 
 	@Override
 	public void transferData() {
-		DataTable dataTable = (DataTable) source;
+		WeBFSDataTable dataTable = (WeBFSDataTable) source;
 		Memory memory = (Memory) dest;
 		dataTable.forEachRow(row -> {
 			Row mRow = new Row();

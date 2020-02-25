@@ -3,7 +3,7 @@ package com.siemens.becs.toolbox;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.siemens.becs.objects.utils.Row;
+import com.siemens.becs.objects.Row;
 import com.siemens.becs.transformation.Mapping;
 import com.siemens.becs.variables.Variables;
 

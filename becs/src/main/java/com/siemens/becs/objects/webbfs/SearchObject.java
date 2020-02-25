@@ -20,7 +20,7 @@ public class SearchObject {
 	private String name;
 	private List<ResultSet> result = new ArrayList<ResultSet>();
 	private List<Transformation> transformation;
-	private List<DataTable> dataTables;
+	private List<WeBFSDataTable> dataTables;
 
 	
 	
@@ -32,11 +32,11 @@ public class SearchObject {
 		this.transformation = transformation;
 	}
 
-	public List<DataTable> getDataTables() {
+	public List<WeBFSDataTable> getDataTables() {
 		return dataTables;
 	}
 
-	public void setDataTables(List<DataTable> dataTables) {
+	public void setDataTables(List<WeBFSDataTable> dataTables) {
 		this.dataTables = dataTables;
 	}
 
@@ -93,7 +93,7 @@ public class SearchObject {
 		SearchObjectsResult result = response.getSearchObjectsResult();
 		ArrayOfBfsObj listOfBfsObj = result.getListOfBfsObj();
 		listOfBfsObj.getBfsObj().forEach(bfsObject -> {
-			DataTable table = getDataTableByName(bfsObject.getTabNam());
+			WeBFSDataTable table = getDataTableByName(bfsObject.getTabNam());
 			if (null != table) {
 				convertBfsObjectToDataTable(bfsObject, table);
 				Transformation trns = getTransformationByName(table.getName());
@@ -103,7 +103,7 @@ public class SearchObject {
 		});
 	}
 
-	private DataTable getDataTableByName(String tabName) {
+	private WeBFSDataTable getDataTableByName(String tabName) {
 		for (int i = 0; i < this.dataTables.size(); i++) {
 			if (this.dataTables.get(i).getName().equals(tabName))
 				return this.dataTables.get(i);
@@ -111,7 +111,7 @@ public class SearchObject {
 		return null;
 	}
 
-	private void convertBfsObjectToDataTable(BfsObj bfsObject, DataTable table) {
+	private void convertBfsObjectToDataTable(BfsObj bfsObject, WeBFSDataTable table) {
 		table.setName(bfsObject.getTabNam());
 		ResultSet data = new ResultSet();
 		bfsObject.getObjVal().forEach(row -> {

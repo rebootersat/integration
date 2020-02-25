@@ -1,4 +1,4 @@
-package com.siemens.becs.objects.utils;
+package com.siemens.becs.objects;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,13 +6,13 @@ import java.util.function.Consumer;
 
 import com.siemens.becs.objects.utils.Source;
 
-public class DataTable implements Source {
+public class WeBFSDataTable implements Source {
 
 	private ResultSet data;
 	private String name;
 	private List<String> cols = new ArrayList<String>();
 
-	public DataTable(String name) {
+	public WeBFSDataTable(String name) {
 		this.name = name;
 	}
 

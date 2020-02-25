@@ -24,7 +24,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.siemens.becs.objects.webbfs.DataTable;
+import com.siemens.becs.objects.webbfs.WeBFSDataTable;
 
 public class XmlProcessor {
 
@@ -65,7 +65,7 @@ public class XmlProcessor {
 		getRootElement().getChildNodes();
 	}
 
-	public List<DataTable> getDataTables(String searchObjectName) {
+	public List<WeBFSDataTable> getDataTables(String searchObjectName) {
 		
 		XPathFactory factory = XPathFactory.newInstance();
         XPath xpath = factory.newXPath();
@@ -80,13 +80,13 @@ public class XmlProcessor {
 			e.printStackTrace();
 		}
 		
-		List<DataTable> tables = new ArrayList<>();
+		List<WeBFSDataTable> tables = new ArrayList<>();
 		NodeList items = document.getElementsByTagName("DataTable");
-		DataTable tab = null;
+		WeBFSDataTable tab = null;
 		for (int i = 0; i < items.getLength(); i++) {
 			Element eElement = (Element) items.item(i);
 			String tableName = eElement.getAttribute("Name");
-			tab = new DataTable(tableName);
+			tab = new WeBFSDataTable(tableName);
 			NodeList tabCols = eElement.getElementsByTagName("Columns");
 			for (int k = 0; k < tabCols.getLength(); k++) {
 				eElement = (Element) tabCols.item(k);
