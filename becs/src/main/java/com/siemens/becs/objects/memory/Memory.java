@@ -3,10 +3,10 @@ package com.siemens.becs.objects.memory;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.siemens.becs.objects.DataTable;
+import com.siemens.becs.objects.ObjectService;
 import com.siemens.becs.objects.Row;
 
-public class Memory implements DataTable {
+public class Memory implements ObjectService {
 
 	private String name;
 	private List<String> columnsNames = new ArrayList<>();
@@ -18,33 +18,29 @@ public class Memory implements DataTable {
 		}
 	}
 
-	public String getName() {
-		return name;
-	}
-
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<String> getColumnsNames() {
-		return columnsNames;
-	}
-
-	public void setColumnsNames(List<String> columnsNames) {
-		this.columnsNames = columnsNames;
-	}
-
-	public List<Row> read() {
-		return rows;
-	}
-
-	public void setRows(List<Row> rows) {
-		this.rows = rows;
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
-	public List<String> getColumnNames() {
-		return columnsNames;
+	public void execute() {
+
+	}
+
+	@Override
+	public void receiveData(List<Row> rows) {
+		this.rows.addAll(rows);
+	}
+
+	@Override
+	public void pushData(ObjectService objectService, Row row) {
+		objectService.receiveData(row);
 	}
 
 	@Override
@@ -60,5 +56,4 @@ public class Memory implements DataTable {
 		builder.append("}");
 		return builder.toString();
 	}
-
 }

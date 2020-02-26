@@ -19,6 +19,10 @@ public class Row {
 		this.columnValues.add(col);
 	}
 
+	public void addColumnValue(String colName, String colValue) {
+		this.columnValues.add(new Column(colName, colValue));
+	}
+
 	@Override
 	public String toString() {
 

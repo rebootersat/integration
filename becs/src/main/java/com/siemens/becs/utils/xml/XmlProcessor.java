@@ -3,18 +3,11 @@ package com.siemens.becs.utils.xml;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -23,8 +16,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import com.siemens.becs.objects.webbfs.WeBFSDataTable;
 
 public class XmlProcessor {
 
@@ -65,6 +56,7 @@ public class XmlProcessor {
 		getRootElement().getChildNodes();
 	}
 
+	/**
 	public List<WeBFSDataTable> getDataTables(String searchObjectName) {
 		
 		XPathFactory factory = XPathFactory.newInstance();
@@ -99,5 +91,5 @@ public class XmlProcessor {
 		}
 		return tables;
 	}
-
+**/
 }

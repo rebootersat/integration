@@ -52,12 +52,13 @@ public class WebBFSConnector {
 	}
 
 	public void addSearchObject(SearchObject search) {
+		search.setWebBFSEndPoint(webBFSEndPoint);
 		this.search.add(search);
 	}
 
 	public void execute() {
 		search.forEach(obj -> {
-			obj.execute(webBFSEndPoint);
+			obj.execute();
 		});
 	}
 

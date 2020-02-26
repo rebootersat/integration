@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.connector;
+/*package com.siemens.soap.bfs.connector;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -30,3 +30,4 @@ public class WebBFSConnectorTest {
 	}
 
 }
+*/

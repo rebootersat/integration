@@ -2,7 +2,12 @@ package com.siemens.becs.objects.webbfs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import com.siemens.becs.objects.Column;
+import com.siemens.becs.objects.DataTable;
+import com.siemens.becs.objects.ObjectService;
+import com.siemens.becs.objects.Row;
 import com.siemens.becs.system.WebBFSSoapEndPoint;
 import com.siemens.becs.transformation.Transformation;
 
@@ -12,17 +17,25 @@ import bfs.soap.siemens.com.webbfs_soap_server.SearchObjects;
 import bfs.soap.siemens.com.webbfs_soap_server.SearchObjectsResponse;
 import bfs.soap.siemens.com.webbfs_soap_server.SearchObjectsResult;
 
-public class SearchObject {
+public class SearchObject implements ObjectService {
 
 	private String mainTableName;
 	private List<SearchVal> searchVals = new ArrayList<>();
 	private List<SelectCol> selectCols = new ArrayList<>();
 	private String name;
-	private List<ResultSet> result = new ArrayList<ResultSet>();
 	private List<Transformation> transformation;
-	private List<WeBFSDataTable> dataTables;
+	private List<DataTable> dataTables;
+	private List<ObjectService> consumerObjects;
+	private WebBFSSoapEndPoint webBFSEndPoint;
 
-	
+	public SearchObject(List<ObjectService> consumerObjects, WebBFSSoapEndPoint webBFSEndPoint) {
+		this.consumerObjects = consumerObjects;
+		this.webBFSEndPoint = webBFSEndPoint;
+	}
+
+	public void setWebBFSEndPoint(WebBFSSoapEndPoint webBFSEndPoint) {
+		this.webBFSEndPoint = webBFSEndPoint;
+	}
 	
 	public List<Transformation> getTransformation() {
 		return transformation;
@@ -32,15 +45,8 @@ public class SearchObject {
 		this.transformation = transformation;
 	}
 
-	public List<WeBFSDataTable> getDataTables() {
-		return dataTables;
-	}
-
-	public void setDataTables(List<WeBFSDataTable> dataTables) {
+	public void setDataTables(List<DataTable> dataTables) {
 		this.dataTables = dataTables;
-	}
-
-	public SearchObject() {
 	}
 
 	public void setName(String name) {
@@ -59,7 +65,7 @@ public class SearchObject {
 		return this.mainTableName;
 	}
 
-	public void setSearchVal(SearchVal searchColumn) {
+	public void addSearchVal(SearchVal searchColumn) {
 		searchVals.add(searchColumn);
 	}
 
@@ -71,39 +77,51 @@ public class SearchObject {
 		return this.selectCols;
 	}
 
-	public void setSelectCol(SelectCol selectCol) {
+	public void addSelectCol(SelectCol selectCol) {
 		selectCols.add(selectCol);
 	}
 
-	public void setResult(ResultSet result) {
-		this.result.add(result);
-	}
-
-	public List<ResultSet> getResult() {
-		return result;
-	}
-	
-
-	public void execute(WebBFSSoapEndPoint webBFSEndPoint) {
+	@Override
+	public void execute() {
 		SearchObjectsResponse response = (SearchObjectsResponse) webBFSEndPoint.sendRequest(new SearchObjects());
-		createDataTable(response);
-	}
+		parseResponse(response);
 
-	private void createDataTable(SearchObjectsResponse response) {
-		SearchObjectsResult result = response.getSearchObjectsResult();
-		ArrayOfBfsObj listOfBfsObj = result.getListOfBfsObj();
-		listOfBfsObj.getBfsObj().forEach(bfsObject -> {
-			WeBFSDataTable table = getDataTableByName(bfsObject.getTabNam());
-			if (null != table) {
-				convertBfsObjectToDataTable(bfsObject, table);
-				Transformation trns = getTransformationByName(table.getName());
-				trns.setSource(table);
-				trns.transferData();
-			}
+		dataTables.forEach(dt -> {
+			Transformation trns = getTransformationBySourceObjectName(dt.getName());
+			ObjectService objectService = getConsumerObjectService(trns.getDestintationObjectName());
+			dt.forEach(row -> {
+				Row r = new Row();
+				row.getColumnValues().forEach(col -> {
+					String destiColName = trns.getDestinationColumnName(col.getName());
+					r.addColumnValue(destiColName, col.getValue());
+				});
+				objectService.receiveData(r);
+			});
 		});
 	}
 
-	private WeBFSDataTable getDataTableByName(String tabName) {
+	@Override
+	public void receiveData(Row row, String dataTableName) {
+		DataTable table = getDataTableByName(dataTableName);
+		if (null == table)
+			throw new NoSuchElementException("Datatable not found " + dataTableName);
+		table.addRow(row);
+	}
+
+	@Override
+	public void pushData(ObjectService next, Row row) {
+		next.receiveData(row);
+	}
+
+	private void parseResponse(SearchObjectsResponse response) {
+		SearchObjectsResult result = response.getSearchObjectsResult();
+		ArrayOfBfsObj listOfBfsObj = result.getListOfBfsObj();
+		listOfBfsObj.getBfsObj().forEach(bfsObject -> {
+			createDataTable(bfsObject);
+		});
+	}
+
+	private DataTable getDataTableByName(String tabName) {
 		for (int i = 0; i < this.dataTables.size(); i++) {
 			if (this.dataTables.get(i).getName().equals(tabName))
 				return this.dataTables.get(i);
@@ -111,23 +129,28 @@ public class SearchObject {
 		return null;
 	}
 
-	private void convertBfsObjectToDataTable(BfsObj bfsObject, WeBFSDataTable table) {
-		table.setName(bfsObject.getTabNam());
-		ResultSet data = new ResultSet();
+	private void createDataTable(BfsObj bfsObject) {
 		bfsObject.getObjVal().forEach(row -> {
-			WebBFSRow rw = new WebBFSRow();
+			Row rw = new Row();
 			row.getObjVal().forEach(column -> {
-				rw.add(new WebBFSColumn(column.getColNam(), column.getValue()));
+				rw.addColumnValue(new Column(column.getColNam(), column.getValue()));
 			});
-			data.addRow(rw);
+			receiveData(rw, bfsObject.getTabNam());
 		});
-		table.setData(data);
 	}
-	
-	private Transformation getTransformationByName(String name) {
+
+	private Transformation getTransformationBySourceObjectName(String name) {
 		for (int i = 0; i < this.transformation.size(); i++) {
-			if(this.transformation.get(i).getName().equals(name))
+			if (this.transformation.get(i).getSourceObjectName().equals(name))
 				return this.transformation.get(i);
+		}
+		return null;
+	}
+
+	private ObjectService getConsumerObjectService(String name) {
+		for (int i = 0; i < consumerObjects.size(); i++) {
+			if (consumerObjects.get(i).getName().equals(name))
+				return consumerObjects.get(i);
 		}
 		return null;
 	}

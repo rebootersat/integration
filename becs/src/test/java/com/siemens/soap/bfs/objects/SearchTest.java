@@ -1,4 +1,4 @@
-package com.siemens.soap.bfs.objects;
+/*package com.siemens.soap.bfs.objects;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertFalse;
@@ -81,3 +81,4 @@ public class SearchTest {
 		assertThat("Anl.AnlNum", equalTo(cols.get(0).getTabAndCol()));
 	}
 }
+*/
