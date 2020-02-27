@@ -2,11 +2,13 @@ package com.siemens.becs.objects.memory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import com.siemens.becs.objects.DataTable;
 import com.siemens.becs.objects.ObjectService;
 import com.siemens.becs.objects.Row;
 
-public class Memory implements ObjectService {
+public class Memory implements ObjectService, DataTable {
 
 	private String name;
 	private List<String> columnsNames = new ArrayList<>();
@@ -55,5 +57,23 @@ public class Memory implements ObjectService {
 		}
 		builder.append("}");
 		return builder.toString();
+	}
+
+	@Override
+	public void addRow(Row row) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<String> getColumnNames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void forEach(Consumer<Row> consumer) {
+		// TODO Auto-generated method stub
+		
 	}
 }

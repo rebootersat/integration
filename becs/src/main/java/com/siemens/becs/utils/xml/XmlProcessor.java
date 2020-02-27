@@ -23,9 +23,10 @@ public class XmlProcessor {
 	private DocumentBuilder builder;
 	private Document document;
 
-	public XmlProcessor() throws ParserConfigurationException {
+	public XmlProcessor(String path) throws ParserConfigurationException, IOException, SAXException {
 		this.factory = DocumentBuilderFactory.newInstance();
 		builder = this.factory.newDocumentBuilder();
+		loadXmlDocument(path);
 	}
 
 	public Document loadXmlDocument(String path) throws IOException, SAXException {
@@ -37,6 +38,7 @@ public class XmlProcessor {
 
 	public Element getRootElement() {
 		Objects.nonNull(document);
+		document.getDocumentElement().normalize();
 		return document.getDocumentElement();
 	}
 
@@ -55,6 +57,11 @@ public class XmlProcessor {
 	public void getTagValue(String tagName) {
 		getRootElement().getChildNodes();
 	}
+	
+	public Document getDocument() {
+		return document;
+	}
+
 
 	/**
 	public List<WeBFSDataTable> getDataTables(String searchObjectName) {
