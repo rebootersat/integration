@@ -14,12 +14,20 @@ public class Memory implements ObjectService, DataTable {
 	private List<String> columnsNames = new ArrayList<>();
 	private List<Row> rows = new ArrayList<>();
 
+	public Memory() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Memory(String name) {
+		this.name = name;
+	}
+	
 	public Memory(String... cols) {
 		for (int i = 0; i < cols.length; i++) {
 			columnsNames.add(cols[i]);
 		}
 	}
-
+	
 	@Override
 	public void setName(String name) {
 		this.name = name;
@@ -61,19 +69,16 @@ public class Memory implements ObjectService, DataTable {
 
 	@Override
 	public void addRow(Row row) {
-		// TODO Auto-generated method stub
-		
+		rows.add(row);
 	}
 
 	@Override
 	public List<String> getColumnNames() {
-		// TODO Auto-generated method stub
-		return null;
+		return columnsNames;
 	}
 
 	@Override
 	public void forEach(Consumer<Row> consumer) {
-		// TODO Auto-generated method stub
 		
 	}
 }

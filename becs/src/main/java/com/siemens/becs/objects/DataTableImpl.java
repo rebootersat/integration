@@ -28,7 +28,7 @@ public class DataTableImpl implements DataTable {
 	public List<String> getColumnNames() {
 		return columnNames;
 	}
-
+	
 	@Override
 	public String getName() {
 		return this.name;

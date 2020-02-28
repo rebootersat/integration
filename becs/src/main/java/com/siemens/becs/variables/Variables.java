@@ -2,14 +2,15 @@ package com.siemens.becs.variables;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Variables {
 
-	static List<Variable> variables;
+	private static List<Variable> variables;
 
 	public static List<Variable> getVariables() {
 		if (variables == null)
-			return new ArrayList<Variable>();
+			variables =  new ArrayList<Variable>();
 		return variables;
 	}
 
@@ -28,4 +29,10 @@ public class Variables {
 		});
 	}
 
+	public static void forEach(Consumer<Variable> consumer) {
+		
+		getVariables().forEach(var -> {
+			consumer.accept(var);
+		});
+	}
 }

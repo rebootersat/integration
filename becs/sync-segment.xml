@@ -1,10 +1,10 @@
 <Workflow Name="SyncSegment">
    <Connectors>
-      <Connector Name="WebBFS">
+      <Connector ID="WebBFS" Name="WebBFS">
          <SearchObjects>
-            <SearchObject Name="FetchPlantItems">
+            <SearchObject ID="FetchPlantItems"  Name="FetchPlantItems">
                <ListOf_DataTables>
-                  <DataTable Name="Anl">
+                  <DataTable ID="Anl" Name="Anl">
                      <Columns>
                         <ColumnName>AnlKnz</ColumnName>
                         <ColumnName>KlaKnz</ColumnName>
@@ -14,7 +14,7 @@
                         <ColumnName>SyncToAPM</ColumnName>
                      </Columns>
                   </DataTable>
-                  <DataTable Name="Asr">
+                  <DataTable ID="Asr" Name="Asr">
                      <Columns>
                         <ColumnName>AsrNum</ColumnName>
                      </Columns>
@@ -25,9 +25,9 @@
       </Connector>
    </Connectors>
    <Transformations>
-      <Transformation Name="SearchAnlToAnlMemory" sourceObjectName = "Anl" destintationObjectName = "AnlMemory">
-	     <ProducerName>Anl</ProducerName>
-		 <ConsumerName>AnlMemory</ConsumerName>
+      <Transformation ID="SearchAnlToAnlMemory" Name="SearchAnlToAnlMemory" sourceObjectName = "Anl" destintationObjectName = "AnlMemory">
+	     <ProducerID>Anl</ProducerID>
+		 <ConsumerID>AnlMemory</ConsumerID>
          <Mapping>
             <SourceColName>AnlKnz</SourceColName>
             <DestinationColName>anlknz</DestinationColName>
@@ -61,7 +61,7 @@
       </Transformation>
    </Transformations>
    <Memories>
-      <Memory Name="AnlMemory">
+      <Memory ID="AnlMemory" Name="AnlMemory">
          <Columns>
             <Column>anlknz</Column>
             <Column>klaknz</Column>
@@ -71,7 +71,7 @@
             <Column>sync_to_apm</Column>
          </Columns>
       </Memory>
-      <Memory Name="AsrMemory">
+      <Memory ID="AsrMemory" Name="AsrMemory">
          <Columns>
             <Column>asrnum</Column>
          </Columns>
@@ -80,27 +80,27 @@
    <Variables>
       <Variable>
          <Name>kks</Name>
-         <Value></Value>
+         <Value>70ADA</Value>
       </Variable>
 	  <Variable>
 		 <Name>webbfs_class</Name>
-         <Value></Value>
+         <Value>Valve</Value>
       </Variable>
 	  <Variable>
 		 <Name>APM_class</Name>
-         <Value></Value>
+         <Value>VALVE</Value>
       </Variable>
 	  <Variable>
 		 <Name>status</Name>
-         <Value></Value>
+         <Value>1</Value>
       </Variable>
 	  <Variable>
 		 <Name>designation</Name>
-         <Value></Value>
+         <Value>test</Value>
       </Variable>
    </Variables>
    <Assignments>
-	<SetValue Name="FromMemory">
+	<SetValue ID="FromMemory" Name="FromMemory">
 		<Mapping>
             <VariableName>AnlKnz</VariableName>
             <SourceColumnName>anlknz</SourceColumnName>
