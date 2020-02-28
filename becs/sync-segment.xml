@@ -25,7 +25,7 @@
       </Connector>
    </Connectors>
    <Transformations>
-      <Transformation ID="SearchAnlToAnlMemory" Name="SearchAnlToAnlMemory" sourceObjectName = "Anl" destintationObjectName = "AnlMemory">
+      <Transformation ID="SearchAnlToAnlMemory" Name="SearchAnlToAnlMemory" sourceObjectID = "Anl" destintationObjectID = "AnlMemory">
 	     <ProducerID>Anl</ProducerID>
 		 <ConsumerID>AnlMemory</ConsumerID>
          <Mapping>
@@ -53,7 +53,7 @@
             <DestinationColName>sync_to_apm</DestinationColName>
          </Mapping>
       </Transformation>
-      <Transformation Name="SearchAsrToAsrMemory" sourceObjectName = "Asr" destintationObjectName = "AsrMemory">
+      <Transformation Name="SearchAsrToAsrMemory" sourceObjectID = "Asr" destintationObjectID = "AsrMemory">
          <Mapping>
             <SourceColName>AsrNum</SourceColName>
             <DestinationColName>asrnum</DestinationColName>
