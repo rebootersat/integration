@@ -36,7 +36,7 @@ public class SearchObject implements ObjectService {
 	public void setWebBFSEndPoint(WebBFSSoapEndPoint webBFSEndPoint) {
 		this.webBFSEndPoint = webBFSEndPoint;
 	}
-	
+
 	public List<Transformation> getTransformation() {
 		return transformation;
 	}
@@ -88,7 +88,7 @@ public class SearchObject implements ObjectService {
 
 		dataTables.forEach(dt -> {
 			Transformation trns = getTransformationBySourceObjectName(dt.getName());
-			ObjectService objectService = getConsumerObjectService(trns.getDestintationObjectName());
+			ObjectService objectService = getConsumerObjectService(trns.getSource().getName());
 			dt.forEach(row -> {
 				Row r = new Row();
 				row.getColumnValues().forEach(col -> {
@@ -141,7 +141,7 @@ public class SearchObject implements ObjectService {
 
 	private Transformation getTransformationBySourceObjectName(String name) {
 		for (int i = 0; i < this.transformation.size(); i++) {
-			if (this.transformation.get(i).getSourceObjectName().equals(name))
+			if (this.transformation.get(i).getSource().getName().equals(name))
 				return this.transformation.get(i);
 		}
 		return null;

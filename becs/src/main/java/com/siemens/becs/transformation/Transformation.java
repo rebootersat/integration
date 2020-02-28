@@ -9,9 +9,14 @@ import java.util.NoSuchElementException;
 public class Transformation {
 
 	private String name;
-	private String sourceObjectName;
-	private String destintationObjectName;
+	private ObjectInfo source;
+	private ObjectInfo destination;
 	List<Mapping> mapping = new ArrayList<>();
+
+	public Transformation(String name) {
+		super();
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;
@@ -21,20 +26,20 @@ public class Transformation {
 		this.name = name;
 	}
 
-	public String getSourceObjectName() {
-		return sourceObjectName;
+	public ObjectInfo getSource() {
+		return source;
 	}
 
-	public void setSourceObjectName(String sourceObjectName) {
-		this.sourceObjectName = sourceObjectName;
+	public void setSource(ObjectInfo source) {
+		this.source = source;
 	}
 
-	public String getDestintationObjectName() {
-		return destintationObjectName;
+	public ObjectInfo getDestination() {
+		return destination;
 	}
 
-	public void setDestintationObjectName(String destintationObjectName) {
-		this.destintationObjectName = destintationObjectName;
+	public void setDestination(ObjectInfo destination) {
+		this.destination = destination;
 	}
 
 	public List<Mapping> getMapping() {
