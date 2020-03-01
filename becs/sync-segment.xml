@@ -3,6 +3,43 @@
       <Connector ID="WebBFS" Name="WebBFS">
          <SearchObjects>
             <SearchObject ID="FetchPlantItems"  Name="FetchPlantItems">
+			   <ListOf_SearchVal>
+					<SearchVal>
+						<Operator>EQ</OrderBy>
+						<TabAndCol>Anl.AnlKnz</TabAndCol>
+						<Value>70ADA</Value>
+					</SearchVal>
+				</ListOf_SearchVal>
+			   <ListOf_SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.AnlKnz</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.KlaKnz</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.APMKla</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.AnlSta</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.AnlBez</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.SyncToAPM</TabAndCol>
+					</SelectCol>
+					<SelectCol>
+						<OrderBy>0</OrderBy>
+						<TabAndCol>Anl.AsrNum</TabAndCol>
+					</SelectCol>
+			   </ListOf_SelectCol>
                <ListOf_DataTables>
                   <DataTable ID="Anl" Name="Anl">
                      <Columns>

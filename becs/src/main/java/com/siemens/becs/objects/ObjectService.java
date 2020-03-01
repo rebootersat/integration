@@ -18,18 +18,18 @@ public interface ObjectService {
 	}
 
 	default void receiveData(Row row) {
-		System.out.println("Method implementation missing in child class");
+		System.out.println("Method implementation missing in child class, Method name : receiveData(row)");
 	}
 
 	default void receiveData(Row row, String dataTableName) {
-		System.out.println("Method implementation missing in child class");
+		System.out.println("Method implementation missing in child class, Method name : receiveData(Row row, String dataTableName)");
 	}
 
 	default void receiveData(List<Row> row) {
-		System.out.println("Method implementation missing in child class");
+		System.out.println("Method implementation missing in child class, Method name : receiveData(List<Row> row)");
 	}
 
 	default void receiveData(List<Row> row, String dataTableName) {
-		System.out.println("Method implementation missing in child class");
+		System.out.println("Method implementation missing in child class, Method name : receiveData(List<Row> row, String dataTableName)");
 	}
 }

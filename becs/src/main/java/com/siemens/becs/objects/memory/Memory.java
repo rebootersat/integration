@@ -15,7 +15,6 @@ public class Memory implements ObjectService, DataTable {
 	private List<Row> rows = new ArrayList<>();
 
 	public Memory() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Memory(String name) {
@@ -47,6 +46,11 @@ public class Memory implements ObjectService, DataTable {
 	public void receiveData(List<Row> rows) {
 		this.rows.addAll(rows);
 	}
+	
+	@Override
+	public void receiveData(Row row) {
+		this.rows.add(row);
+	}
 
 	@Override
 	public void pushData(ObjectService objectService, Row row) {
@@ -55,16 +59,7 @@ public class Memory implements ObjectService, DataTable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("{");
-
-		for (int i = 0; i < rows.size(); i++) {
-			builder.append(rows.get(i));
-			if (i < rows.size() - 1)
-				builder.append(",");
-		}
-		builder.append("}");
-		return builder.toString();
+		return "Memory [name=" + name + ", columnsNames=" + columnsNames + ", rows=" + rows + "]";
 	}
 
 	@Override
@@ -79,6 +74,10 @@ public class Memory implements ObjectService, DataTable {
 
 	@Override
 	public void forEach(Consumer<Row> consumer) {
-		
+		rows.forEach(row->{
+			consumer.accept(row);
+		});
 	}
+	
+	
 }

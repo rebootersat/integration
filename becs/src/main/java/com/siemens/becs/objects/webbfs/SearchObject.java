@@ -28,9 +28,8 @@ public class SearchObject implements ObjectService {
 	private List<ObjectService> consumerObjects;
 	private WebBFSSoapEndPoint webBFSEndPoint;
 
-	public SearchObject(List<ObjectService> consumerObjects, WebBFSSoapEndPoint webBFSEndPoint) {
+	public SearchObject(List<ObjectService> consumerObjects) {
 		this.consumerObjects = consumerObjects;
-		this.webBFSEndPoint = webBFSEndPoint;
 	}
 
 	public void setWebBFSEndPoint(WebBFSSoapEndPoint webBFSEndPoint) {
@@ -88,7 +87,7 @@ public class SearchObject implements ObjectService {
 
 		dataTables.forEach(dt -> {
 			Transformation trns = getTransformationBySourceObjectName(dt.getName());
-			ObjectService objectService = getConsumerObjectService(trns.getSource().getName());
+			ObjectService objectService = getConsumerObjectService(trns.getDestination().getName());
 			dt.forEach(row -> {
 				Row r = new Row();
 				row.getColumnValues().forEach(col -> {
@@ -112,7 +111,7 @@ public class SearchObject implements ObjectService {
 	public void pushData(ObjectService next, Row row) {
 		next.receiveData(row);
 	}
-
+	
 	private void parseResponse(SearchObjectsResponse response) {
 		SearchObjectsResult result = response.getSearchObjectsResult();
 		ArrayOfBfsObj listOfBfsObj = result.getListOfBfsObj();

@@ -1,12 +1,20 @@
 package com.siemens.becs.workflows;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
 import com.siemens.becs.objects.DataTable;
+import com.siemens.becs.objects.ObjectService;
+import com.siemens.becs.objects.webbfs.SearchObject;
+import com.siemens.becs.system.WebBFSConnector;
 import com.siemens.becs.transformation.Transformation;
+import com.siemens.becs.utils.xml.SegmentConfigParser;
 
 @Service
 public class SyncSegmentWorkFlow implements Workflow {
@@ -17,19 +25,31 @@ public class SyncSegmentWorkFlow implements Workflow {
 
 	@Override
 	public void execute() {
+		WebBFSConnector connector = new WebBFSConnector();
+		try {
+			SegmentConfigParser processor = new SegmentConfigParser(
+					"C:\\Users\\SANDEEP\\git\\integration\\becs\\sync-segment.xml");
 
-	}
+			List<ObjectService> consumerObjects = getSearchObjectMemories(processor);
+			List<Transformation> trnsfo = getSearchObjectTransformations(processor);
+			List<DataTable> dataTables = processor.getDataTablesForSearchObject("FetchPlantItems");
 
-	private List<Transformation> createTransformations() {
-		List<Transformation> trnsfrm = new ArrayList<>();
+			SearchObject searchObject = new SearchObject(consumerObjects);
+			searchObject.setName("SearchObject");
+			searchObject.setMainTableName("Anl");
+			searchObject.setTransformation(trnsfo);
+			searchObject.setDataTables(dataTables);
+			connector.addSearchObject(searchObject);
+			connector.execute();
 
-		return trnsfrm;
-	}
+			consumerObjects.forEach(object -> {
+				System.out.println(object);
+			});
 
-	private List<DataTable> createDataTable() {
-		List<DataTable> tables = new ArrayList<DataTable>();
+		} catch (ParserConfigurationException | IOException | SAXException e) {
+			e.printStackTrace();
+		}
 
-		return tables;
 	}
 
 	@Override
@@ -42,6 +62,20 @@ public class SyncSegmentWorkFlow implements Workflow {
 	public void setRabbitMQ() {
 		// TODO Auto-generated method stub
 
+	}
+
+	private List<Transformation> getSearchObjectTransformations(SegmentConfigParser processor) {
+		List<Transformation> trnsfo = new ArrayList<>();
+		trnsfo.add(processor.getTransformationByID("SearchAnlToAnlMemory"));
+		trnsfo.add(processor.getTransformationByID("SearchAsrToAsrMemory"));
+		return trnsfo;
+	}
+
+	private List<ObjectService> getSearchObjectMemories(SegmentConfigParser processor) {
+		List<ObjectService> consumerObjects = new ArrayList<ObjectService>();
+		consumerObjects.add(processor.getMemoryByID("AnlMemory"));
+		consumerObjects.add(processor.getMemoryByID("AsrMemory"));
+		return consumerObjects;
 	}
 
 }
