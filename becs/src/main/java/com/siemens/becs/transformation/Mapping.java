@@ -5,6 +5,9 @@ public class Mapping {
 	private String srcCol;
 	private String destCol;
 	
+	public Mapping() {
+	}
+	
 	public Mapping(String srcCol, String destCol) {
 		super();
 		this.srcCol = srcCol;
@@ -27,4 +30,8 @@ public class Mapping {
 		this.destCol = destCol;
 	}
 
+	@Override
+	public String toString() {
+		return "Mapping [srcCol=" + srcCol + ", destCol=" + destCol + "]";
+	}
 }

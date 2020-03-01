@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.springframework.expression.ExpressionException;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -20,8 +21,10 @@ import org.xml.sax.SAXException;
 import com.siemens.becs.objects.DataTable;
 import com.siemens.becs.objects.DataTableImpl;
 import com.siemens.becs.objects.memory.Memory;
+import com.siemens.becs.transformation.Mapping;
+import com.siemens.becs.transformation.ObjectInfo;
+import com.siemens.becs.transformation.Transformation;
 import com.siemens.becs.variables.Variable;
-import com.siemens.becs.variables.Variables;
 
 public class SegmentConfigParser {
 
@@ -29,6 +32,45 @@ public class SegmentConfigParser {
 
 	public SegmentConfigParser(String apth) throws ParserConfigurationException, IOException, SAXException {
 		xmlProcessor = new XmlProcessor(apth);
+	}
+
+	public Transformation getTransformationByID(String id) {
+		String expression = "Workflow/Transformations/Transformation[@ID='" + id + "']";
+		NodeList transfrNodes = getNodesByExpression(expression);
+		Objects.requireNonNull(transfrNodes);
+		System.out.println("transformation count : " + transfrNodes.getLength());
+		Transformation trn = new Transformation();
+		for (int i = 0; i < transfrNodes.getLength(); i++) {
+			List<Mapping> mappings = new ArrayList<>();
+			Node transfrmNode = transfrNodes.item(0);
+			NamedNodeMap attributes = transfrmNode.getAttributes();
+			String name = attributes.getNamedItem("Name").getNodeValue();
+			trn.setName(name);
+			String sourceID = attributes.getNamedItem("sourceObjectID").getNodeValue();
+			trn.setSource(getObject(sourceID));
+			String destID = attributes.getNamedItem("destintationObjectID").getNodeValue();
+			trn.setDestination(getObject(destID));
+			NodeList mappingNodes = transfrNodes.item(i).getChildNodes();
+			for (int j = 0; j < mappingNodes.getLength(); j++) {
+				NodeList mappingNode = mappingNodes.item(j).getChildNodes();
+				if (mappingNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+					Mapping mapping = new Mapping();
+					for (int k = 0; k < mappingNode.getLength(); k++) {
+						Node item = mappingNode.item(k);
+						if (item.getNodeType() == Node.ELEMENT_NODE) {
+							if (item.getNodeName().equals("SourceColName")) {
+								mapping.setSrcCol(item.getTextContent().trim());
+							} else if (item.getNodeName().equals("DestinationColName")) {
+								mapping.setDestCol(item.getTextContent().trim());
+							}
+						}
+					}
+					mappings.add(mapping);
+				}
+			}
+			trn.setMapping(mappings);
+		}
+		return trn;
 	}
 
 	public List<Variable> getVariables() {
@@ -66,6 +108,32 @@ public class SegmentConfigParser {
 			memory.getColumnNames().addAll(columnNames);
 		}
 		return memory != null ? memory : null;
+	}
+
+	private ObjectInfo getObject(String objectID) {
+
+		ObjectInfo object = getObject("DataTable", objectID);
+		if (Objects.isNull(object)) {
+			object = getObject("Memory", objectID);
+			if (Objects.isNull(object)) {
+				return null;
+			}
+		}
+		return object;
+	}
+
+	private ObjectInfo getObject(String objectVal, String objectID) {
+		String expression = "//" + objectVal + "[@ID='" + objectID + "']";
+		NodeList objectNodes = getNodesByExpression(expression);
+		Objects.requireNonNull(objectNodes);
+		ObjectInfo info = new ObjectInfo();
+		for (int i = 0; i < objectNodes.getLength(); i++) {
+			String name = objectNodes.item(i).getAttributes().getNamedItem("Name").getNodeValue();
+			info.setName(name);
+			List<String> columnNames = getColumnNames(objectNodes.item(i).getChildNodes());
+			info.getColumns().addAll(columnNames);
+		}
+		return info.getName() == null ? null: info;
 	}
 
 	public List<DataTable> getDataTablesForSearchObject(String searchObjectName) {
@@ -114,23 +182,29 @@ public class SegmentConfigParser {
 
 	public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
 		SegmentConfigParser processor = new SegmentConfigParser(
-				"D:\\WebBFS-APM-integration\\integration\\becs\\sync-segment.xml");
-		List<DataTable> tabs = processor.getDataTablesForSearchObject("FetchPlantItems");
+				"C:\\Users\\SANDEEP\\git\\integration\\becs\\sync-segment.xml");
 
-		tabs.forEach(table -> {
-			System.out.println("Table Name : " + table.getName());
-			System.out.println(table.getColumnNames());
-		});
-
-		Memory memory = processor.getMemoryByID("AsrMemory");
-		System.out.println("Name : " + memory.getName());
-		System.out.println(memory.getColumnNames());
-
-		Variables.getVariables().addAll(processor.getVariables());
-
-		Variables.forEach(var -> {
-			System.out.println(var);
-		});
+		/**
+		 * List<DataTable> tabs =
+		 * processor.getDataTablesForSearchObject("FetchPlantItems");
+		 * 
+		 * tabs.forEach(table -> { System.out.println("Table Name : " +
+		 * table.getName()); System.out.println(table.getColumnNames()); });
+		 * 
+		 * Memory memory = processor.getMemoryByID("AsrMemory");
+		 * System.out.println("Name : " + memory.getName());
+		 * System.out.println(memory.getColumnNames());
+		 * 
+		 * Variables.getVariables().addAll(processor.getVariables());
+		 * 
+		 * Variables.forEach(var -> { System.out.println(var); });
+		 **/
+		 Transformation transformationByID =
+		 processor.getTransformationByID("SearchAnlToAnlMemory");
+		 transformationByID.validate();
+		System.out.println(transformationByID);
+	//	ObjectInfo object = processor.getObject("AnlMemory");
+		// System.out.println(object);
 	}
 
 }

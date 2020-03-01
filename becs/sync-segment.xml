@@ -26,9 +26,7 @@
    </Connectors>
    <Transformations>
       <Transformation ID="SearchAnlToAnlMemory" Name="SearchAnlToAnlMemory" sourceObjectID = "Anl" destintationObjectID = "AnlMemory">
-	     <ProducerID>Anl</ProducerID>
-		 <ConsumerID>AnlMemory</ConsumerID>
-         <Mapping>
+	     <Mapping>
             <SourceColName>AnlKnz</SourceColName>
             <DestinationColName>anlknz</DestinationColName>
          </Mapping>
@@ -53,7 +51,7 @@
             <DestinationColName>sync_to_apm</DestinationColName>
          </Mapping>
       </Transformation>
-      <Transformation Name="SearchAsrToAsrMemory" sourceObjectID = "Asr" destintationObjectID = "AsrMemory">
+      <Transformation ID="SearchAsrToAsrMemory" Name="SearchAsrToAsrMemory" sourceObjectID = "Asr" destintationObjectID = "AsrMemory">
          <Mapping>
             <SourceColName>AsrNum</SourceColName>
             <DestinationColName>asrnum</DestinationColName>
@@ -63,17 +61,17 @@
    <Memories>
       <Memory ID="AnlMemory" Name="AnlMemory">
          <Columns>
-            <Column>anlknz</Column>
-            <Column>klaknz</Column>
-            <Column>apmkla</Column>
-            <Column>anlsta</Column>
-            <Column>anlbez</Column>
-            <Column>sync_to_apm</Column>
+            <ColumnName>anlknz</ColumnName>
+            <ColumnName>klaknz</ColumnName>
+            <ColumnName>apmkla</ColumnName>
+            <ColumnName>anlsta</ColumnName>
+            <ColumnName>anlbez</ColumnName>
+            <ColumnName>sync_to_apm</ColumnName>
          </Columns>
       </Memory>
       <Memory ID="AsrMemory" Name="AsrMemory">
          <Columns>
-            <Column>asrnum</Column>
+            <ColumnName>asrnum</ColumnName>
          </Columns>
       </Memory>
    </Memories>

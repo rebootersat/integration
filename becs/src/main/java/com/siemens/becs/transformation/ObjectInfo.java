@@ -1,11 +1,12 @@
 package com.siemens.becs.transformation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectInfo {
 
 	private String name;
-	private List<String> columns;
+	private List<String> columns = new ArrayList<>();
 
 	public ObjectInfo() {
 	}
@@ -31,4 +32,8 @@ public class ObjectInfo {
 		this.columns = columns;
 	}
 
+	@Override
+	public String toString() {
+		return "ObjectInfo [name=" + name + ", columns=" + columns + "]";
+	}
 }

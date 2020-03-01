@@ -6,12 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.activity.InvalidActivityException;
+
 public class Transformation {
 
 	private String name;
 	private ObjectInfo source;
 	private ObjectInfo destination;
 	List<Mapping> mapping = new ArrayList<>();
+
+	public Transformation() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Transformation(String name) {
 		super();
@@ -70,6 +76,14 @@ public class Transformation {
 		return isExist;
 	}
 
+	public void validate() throws InvalidActivityException {
+		for (int i = 0; i < mapping.size(); i++) {
+			if (!source.getColumns().contains(mapping.get(i).getSrcCol())
+					|| !destination.getColumns().contains(mapping.get(i).getDestCol()))
+				throw new InvalidActivityException("Tranformation is invalid " + name);
+		}
+	}
+
 	public String getDestinationColumnName(String sourceColumnName) {
 		String colName = null;
 		for (int i = 0; i < mapping.size(); i++) {
@@ -79,5 +93,11 @@ public class Transformation {
 			}
 		}
 		return colName;
+	}
+
+	@Override
+	public String toString() {
+		return "Transformation [name=" + name + ", source=" + source + ", destination=" + destination + ", mapping="
+				+ mapping + "]";
 	}
 }
