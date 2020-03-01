@@ -7,7 +7,6 @@ public class SearchVal {
 	private String value;
 
 	public SearchVal() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public SearchVal(String operator, String tabAndCol, String value) {
