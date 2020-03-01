@@ -82,7 +82,7 @@ public class SearchObject implements ObjectService {
 
 	@Override
 	public void execute() {
-		SearchObjectsResponse response = (SearchObjectsResponse) webBFSEndPoint.sendRequest(new SearchObjects());
+		SearchObjectsResponse response = (SearchObjectsResponse) webBFSEndPoint.sendRequest(createRequestObject());
 		parseResponse(response);
 
 		dataTables.forEach(dt -> {
@@ -111,7 +111,7 @@ public class SearchObject implements ObjectService {
 	public void pushData(ObjectService next, Row row) {
 		next.receiveData(row);
 	}
-	
+
 	private void parseResponse(SearchObjectsResponse response) {
 		SearchObjectsResult result = response.getSearchObjectsResult();
 		ArrayOfBfsObj listOfBfsObj = result.getListOfBfsObj();
@@ -152,5 +152,9 @@ public class SearchObject implements ObjectService {
 				return consumerObjects.get(i);
 		}
 		return null;
+	}
+
+	private SearchObjects createRequestObject() {
+		return new SearchObjects();
 	}
 }

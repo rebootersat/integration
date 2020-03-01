@@ -30,8 +30,8 @@ public class SyncSegmentWorkFlow implements Workflow {
 			SegmentConfigParser processor = new SegmentConfigParser(
 					"C:\\Users\\SANDEEP\\git\\integration\\becs\\sync-segment.xml");
 
-			List<ObjectService> consumerObjects = getSearchObjectMemories(processor);
-			List<Transformation> trnsfo = getSearchObjectTransformations(processor);
+			List<ObjectService> consumerObjects = loadSearchObjectMemories(processor);
+			List<Transformation> trnsfo = loadSearchObjectTransformations(processor);
 			List<DataTable> dataTables = processor.getDataTablesForSearchObject("FetchPlantItems");
 
 			SearchObject searchObject = new SearchObject(consumerObjects);
@@ -64,14 +64,14 @@ public class SyncSegmentWorkFlow implements Workflow {
 
 	}
 
-	private List<Transformation> getSearchObjectTransformations(SegmentConfigParser processor) {
+	private List<Transformation> loadSearchObjectTransformations(SegmentConfigParser processor) {
 		List<Transformation> trnsfo = new ArrayList<>();
 		trnsfo.add(processor.getTransformationByID("SearchAnlToAnlMemory"));
 		trnsfo.add(processor.getTransformationByID("SearchAsrToAsrMemory"));
 		return trnsfo;
 	}
 
-	private List<ObjectService> getSearchObjectMemories(SegmentConfigParser processor) {
+	private List<ObjectService> loadSearchObjectMemories(SegmentConfigParser processor) {
 		List<ObjectService> consumerObjects = new ArrayList<ObjectService>();
 		consumerObjects.add(processor.getMemoryByID("AnlMemory"));
 		consumerObjects.add(processor.getMemoryByID("AsrMemory"));

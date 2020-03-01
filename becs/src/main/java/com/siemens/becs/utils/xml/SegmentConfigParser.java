@@ -136,9 +136,9 @@ public class SegmentConfigParser {
 		return info.getName() == null ? null: info;
 	}
 
-	public List<DataTable> getDataTablesForSearchObject(String searchObjectName) {
+	public List<DataTable> getDataTablesForSearchObject(String id) {
 		List<DataTable> dTables = new ArrayList<>();
-		String expression = "Workflow/Connectors/Connector/SearchObjects/SearchObject[@ID='" + searchObjectName
+		String expression = "Workflow/Connectors/Connector/SearchObjects/SearchObject[@ID='" + id
 				+ "']/ListOf_DataTables/DataTable";
 		NodeList dataTableNodes = getNodesByExpression(expression);
 		Objects.requireNonNull(dataTableNodes);
