@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class DataTableImpl implements DataTable {
 
-	private String name;
+	private String tableName;
 	private List<Row> rows = new ArrayList<Row>();
 	private List<String> columnNames = new ArrayList<String>();
 
@@ -16,12 +16,12 @@ public class DataTableImpl implements DataTable {
 	}
 
 	public DataTableImpl(String name) {
-		this.name = name;
+		this.tableName = name;
 	}
 
 	@Override
 	public void setName(String name) {
-		this.name = name;
+		this.tableName = name;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class DataTableImpl implements DataTable {
 	
 	@Override
 	public String getName() {
-		return this.name;
+		return this.tableName;
 	}
 
 	@Override

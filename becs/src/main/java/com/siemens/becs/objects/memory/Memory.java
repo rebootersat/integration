@@ -53,11 +53,6 @@ public class Memory implements ObjectService, DataTable {
 	}
 
 	@Override
-	public void pushData(ObjectService objectService, Row row) {
-		objectService.receiveData(row);
-	}
-
-	@Override
 	public String toString() {
 		return "Memory [name=" + name + ", columnsNames=" + columnsNames + ", rows=" + rows + "]";
 	}

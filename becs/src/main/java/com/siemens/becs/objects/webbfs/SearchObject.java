@@ -99,7 +99,6 @@ public class SearchObject implements ObjectService {
 		});
 	}
 
-	@Override
 	public void receiveData(Row row, String dataTableName) {
 		DataTable table = getDataTableByName(dataTableName);
 		if (null == table)
@@ -107,7 +106,6 @@ public class SearchObject implements ObjectService {
 		table.addRow(row);
 	}
 
-	@Override
 	public void pushData(ObjectService next, Row row) {
 		next.receiveData(row);
 	}
