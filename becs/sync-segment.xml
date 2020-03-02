@@ -5,7 +5,7 @@
             <SearchObject ID="FetchPlantItems"  Name="FetchPlantItems">
 			   <ListOf_SearchVal>
 					<SearchVal>
-						<Operator>EQ</OrderBy>
+						<Operator>EQ</Operator>
 						<TabAndCol>Anl.AnlKnz</TabAndCol>
 						<Value>70ADA</Value>
 					</SearchVal>
