@@ -12,6 +12,9 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
+import com.siemens.becs.objects.Column;
+import com.siemens.becs.objects.Row;
+
 @Service
 public class SqlServerDB {
 
@@ -70,29 +73,43 @@ public class SqlServerDB {
 		return stmt.executeUpdate();
 	}
 
-	public void select(String tableName,List<String> columnNames, List<FilterColumn> filters) throws SQLException {
+	public List<Row> select(String tableName, List<String> columnNames, List<FilterColumn> filters)
+			throws SQLException {
 		Objects.requireNonNull(connection, "Connection cannot be null");
 		StringBuilder query = new StringBuilder("SELECT ");
 		for (int i = 0; i < columnNames.size(); i++) {
 			query.append(columnNames.get(i));
-			if(i < columnNames.size() -1 )
+			if (i < columnNames.size() - 1)
 				query.append(",");
 		}
 		query.append(" FROM ").append(tableName);
-		
-		if(filters.size() > 0)
-		{
+
+		if (filters.size() > 0) {
 			query.append(" WHERE ");
 			for (int i = 0; i < filters.size(); i++) {
 				FilterColumn filterColumn = filters.get(i);
-				if(i > 0)
+				if (i > 0)
 					query.append(" ").append(filterColumn.getOperator()).append(" ");
 				query.append(filterColumn.getName()).append(" = ").append("?");
 			}
 		}
-		
-		System.out.println("Query : "+query);
+
+		System.out.println("Query : " + query);
 		PreparedStatement stmt = connection.prepareStatement(query.toString());
+		stmt.setString(1, filters.get(0).getValue());
+
+		ResultSet result = stmt.executeQuery();
+		List<Row> rows = new ArrayList<>();
+		while (result.next()) {
+			Row row = new Row();
+			for (int i = 0; i < columnNames.size(); i++) {
+				Column col = new Column(columnNames.get(i), result.getString(i + 1));
+				row.addColumnValue(col);
+			}
+			rows.add(row);
+		}
+		System.out.println(rows);
+		return rows;
 	}
 
 	public List<String> getColumnsMetadata(String tableName) throws SQLException {
@@ -119,6 +136,17 @@ public class SqlServerDB {
 		SqlServerDB db = new SqlServerDB("sa", "Jain@Mandir1989", "WebBFS");
 		db.createConnection();
 		db.getColumnsMetadata("ANL");
+
+		List<String> columns = new ArrayList<>();
+		columns.add("ANLNUM");
+		columns.add("ANLKNZ");
+		columns.add("KLAKNZ");
+		columns.add("ANLSTA");
+
+		List<FilterColumn> filters = new ArrayList<>();
+		filters.add(new FilterColumn("ANLSTA", "AND", "1"));
+
+		db.select("ANL", columns, filters);
 	}
 
 }
