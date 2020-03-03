@@ -1,7 +1,7 @@
 package com.siemens.becs.objects.SqlServer;
 
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.siemens.becs.objects.DataTableImpl;
@@ -13,7 +13,6 @@ public class SqlTable extends DataTableImpl implements ObjectService {
 
 	private String objectName;
 	private List<ObjectService> destinationObjects;
-	private Connection conn;
 	private Transformation transformation;
 	private SqlServerDB db;
 
@@ -24,11 +23,11 @@ public class SqlTable extends DataTableImpl implements ObjectService {
 	public void setTransformation(Transformation transformation) {
 		this.transformation = transformation;
 	}
-	
+
 	public Transformation getTransformation() {
 		return transformation;
 	}
-	
+
 	public List<ObjectService> getDestinationObjects() {
 		return destinationObjects;
 	}
@@ -68,13 +67,13 @@ public class SqlTable extends DataTableImpl implements ObjectService {
 		try {
 			List<String> columns = db.getColumnsMetadata(getName());
 			boolean containsAll = columns.containsAll(getColumnNames());
-			if(containsAll) {
+			if (containsAll) {
+				return db.select(getName(), getColumnNames(), null);
 			}
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ObjectService.super.getData();
+		return new ArrayList<Row>();
 	}
 }

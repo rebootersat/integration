@@ -142,4 +142,18 @@
         </Mapping>
 	</SetValue>
    </Assignments>
+   <SqlConnector ID="DataFetch" Name = "DataFetch">
+	   <SqlTables>
+		 <SqlTable ID = "AnlTable" name = "AnlTable">
+			<Columns>
+				<ColumnName>ANLNUM</ColumnName>
+				<ColumnName>ANLKNZ</ColumnName>
+				<ColumnName>KLAKNZ</ColumnName>
+				<ColumnName>ANLSTA</ColumnName>
+				<ColumnName>APMKLA</ColumnName>
+				<ColumnName>SYNCTOAPM</ColumnName>
+			 </Columns>
+		 </SqlTable>
+	   </SqlTables>
+   </SqlConnector>
 </Workflow>

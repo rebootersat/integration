@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.stereotype.Service;
-
 import com.siemens.becs.objects.Column;
 import com.siemens.becs.objects.Row;
 
-@Service
 public class SqlServerDB {
 
 	private Connection connection;
@@ -84,19 +81,23 @@ public class SqlServerDB {
 		}
 		query.append(" FROM ").append(tableName);
 
-		if (filters.size() > 0) {
-			query.append(" WHERE ");
-			for (int i = 0; i < filters.size(); i++) {
-				FilterColumn filterColumn = filters.get(i);
-				if (i > 0)
-					query.append(" ").append(filterColumn.getOperator()).append(" ");
-				query.append(filterColumn.getName()).append(" = ").append("?");
+		if (Objects.nonNull(filters)) {
+			if (filters.size() > 0) {
+				query.append(" WHERE ");
+				for (int i = 0; i < filters.size(); i++) {
+					FilterColumn filterColumn = filters.get(i);
+					if (i > 0)
+						query.append(" ").append(filterColumn.getOperator()).append(" ");
+					query.append(filterColumn.getName()).append(" = ").append("?");
+				}
 			}
 		}
 
 		System.out.println("Query : " + query);
 		PreparedStatement stmt = connection.prepareStatement(query.toString());
-		stmt.setString(1, filters.get(0).getValue());
+		if (Objects.nonNull(filters)) {
+			stmt.setString(1, filters.get(0).getValue());
+		}
 
 		ResultSet result = stmt.executeQuery();
 		List<Row> rows = new ArrayList<>();
